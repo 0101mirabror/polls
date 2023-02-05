@@ -19,6 +19,11 @@ router.register("polls", PollViewSet, basename="polls")
 
 """from rest_framework.authtoken import views"""
 
+from rest_framework_swagger.views import get_swagger_view
+from rest_framework.documentation import include_docs_urls
+
+
+# schema_view = get_swagger_view(title="Polls API")
 urlpatterns = [
     path("polls/", PollList.as_view(), name="polls_list"),
     path("polls/<int:pk>/", PollDetail.as_view(), name="polls_detail"),
@@ -29,6 +34,8 @@ urlpatterns = [
     path('users/', UserCreate.as_view(), name="user_create"),
     path('login/', LoginView.as_view(), name="login"),
     # path('login/', views.obtain_auth_token, name="login"),
+    # path(r'swagger-docs/', schema_view),
+    path(r"docs/", include_docs_urls(title="Polls API")),
 ]
 
 urlpatterns += router.urls
